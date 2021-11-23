@@ -22,7 +22,7 @@ button.insertAdjacentElement('afterend', p)
 //Element p 
 const styleP = `
 display:inline-block;
-width:800px;
+width:90%;
 background-color:black;
 margin-top:30px;
 color:white;
