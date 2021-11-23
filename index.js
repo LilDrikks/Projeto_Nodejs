@@ -76,13 +76,39 @@ button2.innerText = 'PREVIUS'
 button2.className = 'btn'
 button2.id = 'btnPv'
 
+
+
+
+const fetchGames = () => {
+    const getGameUrl = id => `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${id}`
+
+    const gamesPromises = []
+
+    for (let i = 1; i <= 10; i++) {
+
+        gamesPromises.push(fetch(getGameUrl(i), {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
+                "x-rapidapi-key": "5a711bdffbmsh6a9d71687481dc7p17aa32jsn2396622d048e"
+            }
+        }).then(response => response.json()))
+    }
+    Promise.all(gamesPromises).then(games => {
+        console.log(games)
+    })
+}
+
+
+fetchGames()
+
 //Variable contabiliza o id do game
-var conta = 1;
+var conta = 1
+
+const url = `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`
 
 
-
-
-fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`, {
+fetch(url, {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
@@ -90,7 +116,6 @@ fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`,
         }
     }).then(r => r.json())
     .then(response => {
-        console.log(response);
         let game = response.thumbnail
         h1.innerText = response.title
         a.innerText = 'Download: ' + response.title
@@ -101,7 +126,7 @@ fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`,
     })
     .catch(err => {
         console.error(err);
-    });
+    })
 
 document.querySelector('#btnNx').addEventListener('click', function buscarGame() {
     conta++
@@ -114,7 +139,6 @@ document.querySelector('#btnNx').addEventListener('click', function buscarGame()
             }
         }).then(r => r.json())
         .then(response => {
-            console.log(response);
             let game = response.thumbnail
             h1.innerText = response.title
             a.innerText = 'Download: ' + response.title
@@ -124,8 +148,8 @@ document.querySelector('#btnNx').addEventListener('click', function buscarGame()
 
         })
         .catch(err => {
-            console.error(err);
-        });
+            console.error(err)
+        })
 })
 document.querySelector('#btnPv').addEventListener('click', function buscarGame() {
     if (conta >= 2) {
@@ -138,7 +162,6 @@ document.querySelector('#btnPv').addEventListener('click', function buscarGame()
                 }
             }).then(r => r.json())
             .then(response => {
-                console.log(response);
                 var game = response.thumbnail
                 h1.innerText = response.title
                 a.innerText = 'Download: ' + response.title
@@ -149,8 +172,8 @@ document.querySelector('#btnPv').addEventListener('click', function buscarGame()
 
             })
             .catch(err => {
-                console.error(err);
-            });
+                console.error(err)
+            })
 
     }
 })
