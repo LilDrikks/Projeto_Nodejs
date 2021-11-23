@@ -8,8 +8,6 @@ const img = document.createElement('img')
 const a = document.createElement('a')
 const p = document.createElement('p')
 
-
-
 //INSERT ELEMENTS IN #CONTAINER DIV
 contain.insertAdjacentElement('beforeend', img)
 contain.insertAdjacentElement('afterbegin', a)
@@ -59,12 +57,6 @@ border-radius:5px;
 contain.style = styleCont
 
 //Element button
-button.innerText = 'NEXT'
-button.className = 'btn'
-button.id = 'btnNx'
-button2.innerText = 'PREVIUS'
-button2.className = 'btn'
-button2.id = 'btnPv'
 const styleBtn = `
 width : 100px;
 height: 50px;
@@ -75,6 +67,16 @@ background-color: #8c8c8c;
 `
 button.style = styleBtn
 button2.style = styleBtn
+
+//Add atributes in buttons
+button.innerText = 'NEXT'
+button.className = 'btn'
+button.id = 'btnNx'
+button2.innerText = 'PREVIUS'
+button2.className = 'btn'
+button2.id = 'btnPv'
+
+//Variable contabiliza o id do game
 var conta = 1;
 
 
@@ -101,12 +103,33 @@ fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`,
         console.error(err);
     });
 
-document.querySelector('#btnNx').addEventListener('click',
+document.querySelector('#btnNx').addEventListener('click', function buscarGame() {
+    conta++
 
+    fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`, {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
+                "x-rapidapi-key": "5a711bdffbmsh6a9d71687481dc7p17aa32jsn2396622d048e"
+            }
+        }).then(r => r.json())
+        .then(response => {
+            console.log(response);
+            let game = response.thumbnail
+            h1.innerText = response.title
+            a.innerText = 'Download: ' + response.title
+            a.href = response.game_url
+            p.innerText = response.description
+            img.src = game
 
-    function buscarGame() {
-        conta++
-
+        })
+        .catch(err => {
+            console.error(err);
+        });
+})
+document.querySelector('#btnPv').addEventListener('click', function buscarGame() {
+    if (conta >= 2) {
+        conta--
         fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`, {
                 "method": "GET",
                 "headers": {
@@ -116,56 +139,18 @@ document.querySelector('#btnNx').addEventListener('click',
             }).then(r => r.json())
             .then(response => {
                 console.log(response);
-                let game = response.thumbnail
+                var game = response.thumbnail
                 h1.innerText = response.title
                 a.innerText = 'Download: ' + response.title
                 a.href = response.game_url
                 p.innerText = response.description
                 img.src = game
 
+
             })
             .catch(err => {
                 console.error(err);
             });
 
-
-
-    })
-document.querySelector('#btnPv').addEventListener('click',
-
-
-    function buscarGame() {
-        if (conta >= 2) {
-            conta--
-            fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`, {
-                    "method": "GET",
-                    "headers": {
-                        "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
-                        "x-rapidapi-key": "5a711bdffbmsh6a9d71687481dc7p17aa32jsn2396622d048e"
-                    }
-                }).then(r => r.json())
-                .then(response => {
-                    console.log(response);
-                    var game = response.thumbnail
-                    h1.innerText = response.title
-                    a.innerText = 'Download: ' + response.title
-                    a.href = response.game_url
-                    p.innerText = response.description
-                    img.src = game
-
-
-                })
-                .catch(err => {
-                    console.error(err);
-                });
-
-        } else {
-
-        }
-
-
-
-
-
-
-    })
+    }
+})
