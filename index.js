@@ -91,7 +91,7 @@ fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`,
         console.log(response);
         let game = response.thumbnail
         h1.innerText = response.title
-        a.innerText = 'Download ' + response.title
+        a.innerText = 'Download: ' + response.title
         a.href = response.game_url
         p.innerText = response.description
         img.src = game
@@ -118,7 +118,7 @@ document.querySelector('#btnNx').addEventListener('click',
                 console.log(response);
                 let game = response.thumbnail
                 h1.innerText = response.title
-                a.innerText = 'Download ' + response.title
+                a.innerText = 'Download: ' + response.title
                 a.href = response.game_url
                 p.innerText = response.description
                 img.src = game
@@ -148,7 +148,7 @@ document.querySelector('#btnPv').addEventListener('click',
                     console.log(response);
                     var game = response.thumbnail
                     h1.innerText = response.title
-                    a.innerText = 'Download ' + response.title
+                    a.innerText = 'Download: ' + response.title
                     a.href = response.game_url
                     p.innerText = response.description
                     img.src = game
