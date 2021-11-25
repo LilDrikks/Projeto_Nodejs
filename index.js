@@ -34,8 +34,6 @@ const fetchGames = () => {
 }
 
 
-
-
 fetchGames()
 
 //Variable contabiliza o id do game
