@@ -61,6 +61,7 @@ body {
     border-bottom-right-radius: 5px;
     background-color: #36695E;
     color: white;
+    border: 1px solid rgb(114, 114, 114);
 }
 
 #linkGame:hover {
@@ -87,6 +88,9 @@ body {
     border: none;
     font-weight: 500;
     color: #36695E;
+    border: 1px solid rgb(114, 114, 114);
+    margin: 10px;
+    border-radius: 3px;
 }
 
 .Btns:hover {
