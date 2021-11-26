@@ -1,13 +1,14 @@
 //CREATE ELEMENTS
-const body = document.getElementById('#body')
-const contain = document.getElementById('container')
-const linkGame = document.getElementById('linkGame')
-const imgGame = document.getElementById('imgGame')
-const nameH1 = document.getElementById('nameH1')
-const description = document.getElementById('description')
-const PREVIUS = document.getElementById('PREVIUS')
-const NEXT = document.getElementById('NEXT')
-
+let body = document.getElementById('#body')
+let contain = document.getElementById('container')
+let linkGame = document.getElementById('linkGame')
+let imgGame = document.getElementById('imgGame')
+let nameH1 = document.getElementById('nameH1')
+let description = document.getElementById('description')
+let PREVIUS = document.getElementById('PREVIUS')
+let NEXT = document.getElementById('NEXT')
+let gamesALL
+let gamesALL2
 
 
 const fetchGames = () => {
@@ -15,7 +16,7 @@ const fetchGames = () => {
 
     const gamesPromises = []
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 50; i++) {
 
         gamesPromises.push(fetch(getGameUrl(i), {
             "method": "GET",
@@ -23,91 +24,105 @@ const fetchGames = () => {
                 "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
                 "x-rapidapi-key": "5a711bdffbmsh6a9d71687481dc7p17aa32jsn2396622d048e"
             }
+
         }).then(response => response.json()))
+
     }
     Promise.all(gamesPromises).then(games => {
-        var gamesALL = games
+        gamesALL = games
         console.log(gamesALL)
+
+        gamesALL.splice(26, 1)
+        gamesALL.splice(32, 1)
+        gamesALL.splice(35, 1)
+        gamesALL.splice(36, 2)
+        gamesALL.splice(40, 1)
+        gamesALL.splice(43, 1)
+
+
+        console.log(gamesALL)
+        nameH1.innerText = gamesALL[0].title
+        linkGame.innerText = 'Download: ' + gamesALL[0].title
+        linkGame.href = gamesALL[0].game_url
+        description.innerText = gamesALL[0].description
+        imgGame.src = gamesALL[0].thumbnail
     })
 
 
 }
 
-
 fetchGames()
 
-//Variable contabiliza o id do game
-var conta = 1
 
-const url = `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`
+const fetchGames2 = () => {
+    const getGameUrl2 = id => `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${id}`
 
+    const gamesPromises = []
 
-fetch(url, {
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
-            "x-rapidapi-key": "5a711bdffbmsh6a9d71687481dc7p17aa32jsn2396622d048e"
-        }
-    }).then(r => r.json())
-    .then(response => {
-        let game = response.thumbnail
-        nameH1.innerText = response.title
-        linkGame.innerText = 'Download: ' + response.title
-        linkGame.href = response.game_url
-        description.innerText = response.description
-        imgGame.src = game
+    for (let i = 51; i <= 10; i++) {
 
-    })
-    .catch(err => {
-        console.error(err);
-    })
-
-NEXT.addEventListener('click', function buscarGame() {
-    conta++
-
-    fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`, {
+        gamesPromises.push(fetch(getGameUrl2(i), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
                 "x-rapidapi-key": "5a711bdffbmsh6a9d71687481dc7p17aa32jsn2396622d048e"
             }
-        }).then(r => r.json())
-        .then(response => {
-            let game = response.thumbnail
-            nameH1.innerText = response.title
-            linkGame.innerText = 'Download: ' + response.title
-            linkGame.href = response.game_url
-            description.innerText = response.description
-            imgGame.src = game
 
-        })
-        .catch(err => {
-            console.error(err)
-        })
+        }).then(response => response.json()))
+
+    }
+    Promise.all(gamesPromises).then(games => {
+        gamesALL2 = games
+        console.log(gamesALL)
+
+    })
+
+
+}
+
+fetchGames2()
+
+
+
+
+
+
+
+
+//Variable contabiliza o id do game
+var conta = 0
+
+
+
+
+
+
+
+
+
+NEXT.addEventListener('click', function buscarGame() {
+    conta++
+
+    let game = gamesALL[conta].thumbnail
+    nameH1.innerText = gamesALL[conta].title
+    linkGame.innerText = 'Download: ' + gamesALL[conta].title
+    linkGame.href = gamesALL[conta].game_url
+    description.innerText = gamesALL[conta].description
+    imgGame.src = game
+    console.log(conta)
+
 })
+
 PREVIUS.addEventListener('click', function buscarGame() {
-    if (conta >= 2) {
+    if (conta >= 1) {
         conta--
-        fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${conta}`, {
-                "method": "GET",
-                "headers": {
-                    "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
-                    "x-rapidapi-key": "5a711bdffbmsh6a9d71687481dc7p17aa32jsn2396622d048e"
-                }
-            }).then(r => r.json())
-            .then(response => {
-                let game = response.thumbnail
-                nameH1.innerText = response.title
-                linkGame.innerText = 'Download: ' + response.title
-                linkGame.href = response.game_url
-                description.innerText = response.description
-                imgGame.src = game
-
-
-            })
-            .catch(err => {
-                console.error(err)
-            })
+        let game = gamesALL[conta].thumbnail
+        nameH1.innerText = gamesALL[conta].title
+        linkGame.innerText = 'Download: ' + gamesALL[conta].title
+        linkGame.href = gamesALL[conta].game_url
+        description.innerText = gamesALL[conta].description
+        imgGame.src = game
+        console.log(conta)
 
     }
 })
