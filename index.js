@@ -8,7 +8,8 @@ let description = document.getElementById('description')
 let PREVIUS = document.getElementById('PREVIUS')
 let NEXT = document.getElementById('NEXT')
 let gamesALL
-let gamesALL2
+
+let gamesALLFinal
 
 
 
@@ -18,20 +19,16 @@ const fetchGames = () => {
     const gamesPromises = []
 
     for (let i = 1; i <= 50; i++) {
-
         gamesPromises.push(fetch(getGameUrl(i), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
                 "x-rapidapi-key": "5a711bdffbmsh6a9d71687481dc7p17aa32jsn2396622d048e"
             }
-
         }).then(response => response.json()))
-
     }
     Promise.all(gamesPromises).then(games => {
         gamesALL = games
-
         gamesALL.splice(26, 1)
         gamesALL.splice(32, 1)
         gamesALL.splice(35, 1)
@@ -44,12 +41,14 @@ const fetchGames = () => {
         linkGame.href = gamesALL[0].game_url
         description.innerText = gamesALL[0].description
         imgGame.src = gamesALL[0].thumbnail
+        fetchGames2()
+
     })
 
 
 }
-
 fetchGames()
+
 
 const fetchGames2 = () => {
     const getGameUrl2 = id => `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${id}`
@@ -57,16 +56,13 @@ const fetchGames2 = () => {
     const gamesPromises = []
 
     for (let i = 50; i <= 100; i++) {
-
         gamesPromises.push(fetch(getGameUrl2(i), {
             "method": "GET",
             "headers": {
                 "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
                 "x-rapidapi-key": "5a711bdffbmsh6a9d71687481dc7p17aa32jsn2396622d048e"
             }
-
         }).then(response => response.json()))
-
     }
     Promise.all(gamesPromises).then(games => {
         gamesALL2 = games
@@ -79,23 +75,17 @@ const fetchGames2 = () => {
         gamesALL2.splice(36, 1)
         gamesALL2.splice(0, 1)
         gamesALL2.splice(2, 2)
-
     })
-
-
 }
-fetchGames2()
 
 
 
 //Variable contabiliza o id do game
 var conta = 0
+PREVIUS.addEventListener('click', function buscarGame() {
 
-NEXT.addEventListener('click', function buscarGame() {
-    if (conta <= 76) {
-        conta++
-        let gamesALLFinal
-        gamesALLFinal = gamesALL.concat(gamesALL2)
+    if (conta >= 1) {
+        conta--
         nameH1.innerText = gamesALLFinal[conta].title
         linkGame.innerText = 'Download: ' + gamesALLFinal[conta].title
         linkGame.href = gamesALLFinal[conta].game_url
@@ -103,11 +93,10 @@ NEXT.addEventListener('click', function buscarGame() {
         imgGame.src = gamesALLFinal[conta].thumbnail
     }
 })
+NEXT.addEventListener('click', function buscarGame() {
 
-PREVIUS.addEventListener('click', function buscarGame() {
-    if (conta >= 1) {
-        conta--
-        let gamesALLFinal
+    if (conta <= 76) {
+        conta++
         gamesALLFinal = gamesALL.concat(gamesALL2)
         nameH1.innerText = gamesALLFinal[conta].title
         linkGame.innerText = 'Download: ' + gamesALLFinal[conta].title
