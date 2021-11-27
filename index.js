@@ -9,7 +9,7 @@ let PREVIUS = document.getElementById('PREVIUS')
 let NEXT = document.getElementById('NEXT')
 let gamesALL
 let gamesALL2
-let gamesALLFinal
+
 
 
 const fetchGames = () => {
@@ -94,6 +94,7 @@ var conta = 0
 NEXT.addEventListener('click', function buscarGame() {
     if (conta <= 76) {
         conta++
+        let gamesALLFinal
         gamesALLFinal = gamesALL.concat(gamesALL2)
         nameH1.innerText = gamesALLFinal[conta].title
         linkGame.innerText = 'Download: ' + gamesALLFinal[conta].title
@@ -106,6 +107,8 @@ NEXT.addEventListener('click', function buscarGame() {
 PREVIUS.addEventListener('click', function buscarGame() {
     if (conta >= 1) {
         conta--
+        let gamesALLFinal
+        gamesALLFinal = gamesALL.concat(gamesALL2)
         nameH1.innerText = gamesALLFinal[conta].title
         linkGame.innerText = 'Download: ' + gamesALLFinal[conta].title
         linkGame.href = gamesALLFinal[conta].game_url
