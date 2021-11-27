@@ -8,7 +8,7 @@ let description = document.getElementById('description')
 let PREVIUS = document.getElementById('PREVIUS')
 let NEXT = document.getElementById('NEXT')
 let gamesALL
-
+let gamesALL2
 let gamesALLFinal
 
 
@@ -43,6 +43,7 @@ const fetchGames = () => {
         imgGame.src = gamesALL[0].thumbnail
         fetchGames2()
 
+
     })
 
 
@@ -75,6 +76,7 @@ const fetchGames2 = () => {
         gamesALL2.splice(36, 1)
         gamesALL2.splice(0, 1)
         gamesALL2.splice(2, 2)
+
     })
 }
 
@@ -82,10 +84,13 @@ const fetchGames2 = () => {
 
 //Variable contabiliza o id do game
 var conta = 0
-PREVIUS.addEventListener('click', function buscarGame() {
+NEXT.addEventListener('click', function buscarGame() {
 
-    if (conta >= 1) {
-        conta--
+    if (conta <= 76) {
+        conta++
+
+        gamesALLFinal = gamesALL.concat(gamesALL2)
+
         nameH1.innerText = gamesALLFinal[conta].title
         linkGame.innerText = 'Download: ' + gamesALLFinal[conta].title
         linkGame.href = gamesALLFinal[conta].game_url
@@ -93,10 +98,10 @@ PREVIUS.addEventListener('click', function buscarGame() {
         imgGame.src = gamesALLFinal[conta].thumbnail
     }
 })
-NEXT.addEventListener('click', function buscarGame() {
+PREVIUS.addEventListener('click', function buscarGame() {
 
-    if (conta <= 76) {
-        conta++
+    if (conta >= 1) {
+        conta--
         gamesALLFinal = gamesALL.concat(gamesALL2)
         nameH1.innerText = gamesALLFinal[conta].title
         linkGame.innerText = 'Download: ' + gamesALLFinal[conta].title
