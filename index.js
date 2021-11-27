@@ -7,8 +7,7 @@ let nameH1 = document.getElementById('nameH1')
 let description = document.getElementById('description')
 let PREVIUS = document.getElementById('PREVIUS')
 let NEXT = document.getElementById('NEXT')
-let gamesALL
-let gamesALL2
+let gamesALLFinal
 
 
 const fetchGames = () => {
@@ -30,7 +29,6 @@ const fetchGames = () => {
     }
     Promise.all(gamesPromises).then(games => {
         gamesALL = games
-        console.log(gamesALL)
 
         gamesALL.splice(26, 1)
         gamesALL.splice(32, 1)
@@ -39,8 +37,6 @@ const fetchGames = () => {
         gamesALL.splice(40, 1)
         gamesALL.splice(43, 1)
 
-
-        console.log(gamesALL)
         nameH1.innerText = gamesALL[0].title
         linkGame.innerText = 'Download: ' + gamesALL[0].title
         linkGame.href = gamesALL[0].game_url
@@ -53,13 +49,12 @@ const fetchGames = () => {
 
 fetchGames()
 
-
 const fetchGames2 = () => {
     const getGameUrl2 = id => `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${id}`
 
     const gamesPromises = []
 
-    for (let i = 51; i <= 10; i++) {
+    for (let i = 50; i <= 100; i++) {
 
         gamesPromises.push(fetch(getGameUrl2(i), {
             "method": "GET",
@@ -73,56 +68,46 @@ const fetchGames2 = () => {
     }
     Promise.all(gamesPromises).then(games => {
         gamesALL2 = games
-        console.log(gamesALL)
+        gamesALL2.splice(23, 4)
+        gamesALL2.splice(24, 4)
+        gamesALL2.splice(26, 1)
+        gamesALL2.splice(27, 1)
+        gamesALL2.splice(30, 1)
+        gamesALL2.splice(35, 1)
+        gamesALL2.splice(36, 1)
+        gamesALL2.splice(0, 1)
+        gamesALL2.splice(2, 2)
 
     })
 
 
 }
-
 fetchGames2()
-
-
-
-
-
 
 
 
 //Variable contabiliza o id do game
 var conta = 0
 
-
-
-
-
-
-
-
-
 NEXT.addEventListener('click', function buscarGame() {
-    conta++
-
-    let game = gamesALL[conta].thumbnail
-    nameH1.innerText = gamesALL[conta].title
-    linkGame.innerText = 'Download: ' + gamesALL[conta].title
-    linkGame.href = gamesALL[conta].game_url
-    description.innerText = gamesALL[conta].description
-    imgGame.src = game
-    console.log(conta)
-
+    if (conta <= 76) {
+        conta++
+        gamesALLFinal = gamesALL.concat(gamesALL2)
+        nameH1.innerText = gamesALLFinal[conta].title
+        linkGame.innerText = 'Download: ' + gamesALLFinal[conta].title
+        linkGame.href = gamesALLFinal[conta].game_url
+        description.innerText = gamesALLFinal[conta].description
+        imgGame.src = gamesALLFinal[conta].thumbnail
+    }
 })
 
 PREVIUS.addEventListener('click', function buscarGame() {
     if (conta >= 1) {
         conta--
-        let game = gamesALL[conta].thumbnail
-        nameH1.innerText = gamesALL[conta].title
-        linkGame.innerText = 'Download: ' + gamesALL[conta].title
-        linkGame.href = gamesALL[conta].game_url
-        description.innerText = gamesALL[conta].description
-        imgGame.src = game
-        console.log(conta)
-
+        nameH1.innerText = gamesALLFinal[conta].title
+        linkGame.innerText = 'Download: ' + gamesALLFinal[conta].title
+        linkGame.href = gamesALLFinal[conta].game_url
+        description.innerText = gamesALLFinal[conta].description
+        imgGame.src = gamesALLFinal[conta].thumbnail
     }
 })
