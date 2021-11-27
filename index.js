@@ -7,6 +7,8 @@ let nameH1 = document.getElementById('nameH1')
 let description = document.getElementById('description')
 let PREVIUS = document.getElementById('PREVIUS')
 let NEXT = document.getElementById('NEXT')
+let gamesALL
+let gamesALL2
 let gamesALLFinal
 
 
