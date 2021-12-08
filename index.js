@@ -25,7 +25,7 @@ const fetchGames = () => {
                 "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
                 "x-rapidapi-key": "5a711bdffbmsh6a9d71687481dc7p17aa32jsn2396622d048e"
             }
-        }).then(response => response.json()))
+        }).then(async response => await response.json()))
     }
     Promise.all(gamesPromises).then(games => {
         gamesALL = games
@@ -63,7 +63,7 @@ const fetchGames2 = () => {
                 "x-rapidapi-host": "free-to-play-games-database.p.rapidapi.com",
                 "x-rapidapi-key": "5a711bdffbmsh6a9d71687481dc7p17aa32jsn2396622d048e"
             }
-        }).then(response => response.json()))
+        }).then(async response => await response.json()))
     }
     Promise.all(gamesPromises).then(games => {
         gamesALL2 = games
@@ -88,9 +88,9 @@ NEXT.addEventListener('click', function buscarGame() {
 
     if (conta <= 76) {
         conta++
-
+        console.log(gamesALL2)
         gamesALLFinal = gamesALL.concat(gamesALL2)
-
+        console.log(gamesALLFinal)
         nameH1.innerText = gamesALLFinal[conta].title
         linkGame.innerText = 'Download: ' + gamesALLFinal[conta].title
         linkGame.href = gamesALLFinal[conta].game_url
