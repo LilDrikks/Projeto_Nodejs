@@ -41,7 +41,7 @@ const fetchGames = () => {
         linkGame.href = gamesALL[0].game_url
         description.innerText = gamesALL[0].description
         imgGame.src = gamesALL[0].thumbnail
-        fetchGames2()
+
 
 
     })
@@ -88,15 +88,17 @@ NEXT.addEventListener('click', function buscarGame() {
 
     if (conta <= 76) {
         conta++
-        console.log(gamesALL2)
         gamesALLFinal = gamesALL.concat(gamesALL2)
-        console.log(gamesALLFinal)
+
         nameH1.innerText = gamesALLFinal[conta].title
         linkGame.innerText = 'Download: ' + gamesALLFinal[conta].title
         linkGame.href = gamesALLFinal[conta].game_url
         description.innerText = gamesALLFinal[conta].description
         imgGame.src = gamesALLFinal[conta].thumbnail
+        console.log(gamesALLFinal)
     }
+    if (gamesALLFinal.length <= 77)
+        fetchGames2()
 })
 PREVIUS.addEventListener('click', function buscarGame() {
 
